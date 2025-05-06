@@ -1,0 +1,149 @@
+/* ESTILO GENERAL DEL CUERPO */
+body {
+    background: #e6f8f8; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    color: #333; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+}
+
+/* CONTENEDOR DEL FORMULARIO */
+.formulario {
+    background: white; 
+    padding: 30px 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
+    width: 100%;
+    max-width: 400px; 
+    box-sizing: border-box; 
+}
+
+/* TÍTULO PRINCIPAL (h2) */
+h2 {
+    color: #48c9b0; 
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* ETIQUETAS (label) */
+label {
+    display: block;
+    margin: 12px 0 6px; 
+    color: #555;
+}
+
+/* CAMPOS DE TEXTO */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d1f0f0; 
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s ease; 
+    box-sizing: border-box;
+}
+
+/* EFECTO AL ENFOCAR UN CAMPO */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #48c9b0; 
+}
+
+/* BOTÓN DE ENVÍO */
+input[type="submit"] {
+    background: #48c9b0; 
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* HOVER DEL BOTÓN */
+input[type="submit"]:hover {
+    background: #3cb29d; 
+}
+
+/* MENSAJES DE ÉXITO O ERROR */
+.mensaje {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.mensaje.ok {
+    color: #27ae60; 
+}
+
+.mensaje.error {
+    color: #e74c3c; 
+}
+
+/* MENSAJE FINAL: ¿YA TIENES CUENTA? */
+.mensaje-extra {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ENLACE DENTRO DEL MENSAJE EXTRA */
+.mensaje-extra a {
+    color: #48c9b0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.mensaje-extra a:hover {
+    text-decoration: underline;
+}
+
+/* BOTONES EN LA PANTALLA DE BIENVENIDA */
+.acciones {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+/* BOTÓN PRINCIPAL */
+.boton {
+    display: inline-block;
+    background: #48c9b0;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+/* EFECTO AL PASAR EL MOUSE POR BOTÓN */
+.boton:hover {
+    background: #3cb29d;
+}
+
+/* BOTÓN SECUNDARIO (por ejemplo: cerrar sesión) */
+.boton-secundario {
+    background: #f2f2f2;
+    color: #333;
+}
+
+.boton-secundario:hover {
+    background: #ddd;
+}
