@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $usuario = "root"; // o el usuario que hayas creado
-$contrasena = "";  // pon aquí tu contraseña si tu usuario tiene una
+$contrasena = "debian12";  // pon aquí tu contraseña si tu usuario tiene una
 $basedatos = "gestor_tareas";
 
 $conn = new mysqli($host, $usuario, $contrasena, $basedatos);

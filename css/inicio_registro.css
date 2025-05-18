@@ -1,0 +1,163 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  height: 100vh;
+  background: linear-gradient(135deg, #26a69a, #48c9b0, #d1f0f0);
+  background-size: 400% 400%;
+  animation: fondoAnimado 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fondoAnimado {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.contenedor {
+  width: 900px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  overflow: hidden;
+}
+
+/* Lado izquierdo: icono y texto */
+.lado-izquierdo {
+  flex: 1;
+  background: rgba(72, 201, 176, 0.1);
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.icono {
+  width: 80px;
+  margin-bottom: 25px;
+  opacity: 0.95;
+}
+
+.lado-izquierdo h1 {
+  font-size: 38px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.lado-izquierdo h1 span {
+  color: #2c3e50;
+}
+
+.lado-izquierdo p {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Lado derecho: formulario */
+.lado-derecho {
+  flex: 1;
+  background: #fff;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lado-derecho h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #26a69a;
+  font-size: 28px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para todos los campos de formulario (texto, email, password) */
+form input:not([type="submit"]) {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #d1f0f0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+form input:not([type="submit"]):focus {
+  border-color: #26a69a;
+}
+
+/* Botón de envío */
+form input[type="submit"] {
+  background: #26a69a;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form input[type="submit"]:hover {
+  background: #1e8e86;
+}
+
+/* Mensaje de error */
+.mensaje-error {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Enlace para cambiar entre formularios */
+.registro-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.registro-link a {
+  color: #26a69a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
+/* Mensaje de éxito */
+.mensaje-ok {
+    color: #27ae60;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+/*Boton volver en crear_tarea*/
+/* Contenedor de botones de acciones */
+
+/**/
+
+/**/

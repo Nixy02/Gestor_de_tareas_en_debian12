@@ -1,56 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
-    <div class="formulario">
-        <h2>Iniciar sesión</h2>
-        <form action="login.php" method="POST">
-            <label>Correo electrónico:</label>
-            <input type="email" name="correo" required>
+<?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+require 'config.php';
 
-            <label>Contraseña:</label>
-            <input type="password" name="contrasena" required>
+if ($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['iniciar'])) {
+    $correo    = trim($_POST['correo']);
+    $contrasena= $_POST['contrasena'];
 
-            <input type="submit" name="iniciar" value="Entrar">
-        </form>
+    $stmt = $conn->prepare("SELECT nombre, contrasena FROM usuarios WHERE correo = ?");
+    $stmt->bind_param("s",$correo);
+    $stmt->execute();
+    $stmt->store_result();
 
-        <?php
-        if (isset($_POST['iniciar'])) {
-            require 'config.php';
-
-            $correo = $_POST['correo'];
-            $contrasena = $_POST['contrasena'];
-
-            $sql = "SELECT * FROM usuarios WHERE correo = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $correo);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
-
-            if ($resultado->num_rows === 1) {
-                $usuario = $resultado->fetch_assoc();
-                if (password_verify($contrasena, $usuario['contrasena'])) {
-                    echo "<p class='mensaje ok'>Inicio de sesión exitoso</p>";
-                    // Aquí podrías redirigir: header("Location: dashboard.php");
-                } else {
-                    echo "<p class='mensaje error'>Contraseña incorrecta</p>";
-                }
-            } else {
-                echo "<p class='mensaje error'>El correo no está registrado</p>";
-            }
-
-            $stmt->close();
-            $conn->close();
+    if ($stmt->num_rows===1) {
+        $stmt->bind_result($nombreDb,$hash);
+        $stmt->fetch();
+        if (password_verify($contrasena,$hash)) {
+            $_SESSION['correo']= $correo;
+            $_SESSION['nombre']= $nombreDb;
+            header("Location: bienvenida.php");
+            exit();
         }
-        ?>
-
-        <div class="mensaje-extra">
-            ¿No tienes cuenta? <a href="registro.php">Regístrate aquí</a>
-        </div>
-    </div>
-</body>
-</html>
+    }
+    // Si llega aquí, error
+    header("Location: inicio.php?error=1");
+    exit();
+} else {
+    header("Location: inicio.php");
+    exit();
+}
