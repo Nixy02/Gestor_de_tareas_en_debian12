@@ -10,6 +10,7 @@ $error = '';
 
 // Solo procesar si viene vía POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recoger los datos del formulario
     $nombre      = trim($_POST['nombre']);
     $correo      = trim($_POST['correo']);
     $contrasena  = $_POST['contrasena'];
@@ -17,17 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 1) Validaciones básicas
     if ($contrasena !== $contrasena2) {
-        $error = 'Las contraseñas no coinciden.';
+        $error = '⚠️ Las contraseñas no coinciden.';
     } elseif (strlen($contrasena) < 6) {
-        $error = 'La contraseña debe tener al menos 6 caracteres.';
+        $error = '⚠️ La contraseña debe tener al menos 6 caracteres.';
     } else {
         // 2) Comprobar si el correo ya existe
         $stmt = $conn->prepare("SELECT id FROM usuarios WHERE correo = ?");
         $stmt->bind_param("s", $correo);
         $stmt->execute();
         $stmt->store_result();
+
         if ($stmt->num_rows > 0) {
-            $error = 'Ese correo ya está en uso.';
+            $error = '⚠️ Ese correo ya está en uso.';
             $stmt->close();
         } else {
             $stmt->close();
@@ -35,12 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hash = password_hash($contrasena, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("INSERT INTO usuarios (nombre, correo, contrasena) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $nombre, $correo, $hash);
+
             if ($stmt->execute()) {
                 // Registro exitoso: redirigir con mensaje
                 header("Location: inicio.php?registrado=1");
                 exit();
             } else {
-                $error = 'Error al registrar usuario. Por favor, inténtalo de nuevo.';
+                $error = '⚠️E Error al registrar usuario. Por favor, inténtalo de nuevo.';
             }
             $stmt->close();
         }

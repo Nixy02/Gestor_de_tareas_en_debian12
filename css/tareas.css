@@ -1,0 +1,153 @@
+import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, #26a69a, #48c9b0, #d1f0f0);
+  background-size: 400% 400%;
+  animation: fondoAnimado 10s ease infinite;
+  padding: 60px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+@keyframes fondoAnimado {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.contenedor {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.contenedor h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #26a69a;
+}
+
+.mensaje-vacio {
+  text-align: center;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+}
+
+thead {
+  background: #26a69a;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.boton-principal {
+  background: #26a69a;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.boton-principal:hover {
+  background: #1e8e86;
+}
+
+.boton-secundario {
+  background: #f2f2f2;
+  color: #333;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.boton-secundario:hover {
+  background: #ddd;
+}
+/*Logo sin tareas*/
+.sin-tareas {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-tareas-vacio {
+  width: 60px;
+  opacity: 0.9;
+  margin-bottom: 15px;
+}
+.mensaje-ok {
+  color: #27ae60;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+/* Colores por estado */
+.estado-pendiente {
+  background-color: #fffbe6; /* amarillo claro */
+}
+
+.estado-en-curso {
+  background-color: #e6f7ff; /* azul claro */
+}
+
+.estado-completada {
+  background-color: #f2f2f2; /* gris claro */
+}
+
+.estado-pendiente:hover,
+.estado-en-curso:hover,
+.estado-completada:hover {
+  background-color: #e0e0e0;
+}
+/* Color del texto en la columna "Estado" */
+td:nth-child(3) {
+  font-weight: bold;
+}
+
+.estado-pendiente td:nth-child(3) {
+  color: #e67e22;
+}
+
+.estado-en-curso td:nth-child(3) {
+  color: #3498db;
+}
+
+.estado-completada td:nth-child(3) {
+  color: #7f8c8d;
+}

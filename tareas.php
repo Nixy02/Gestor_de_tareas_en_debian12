@@ -7,59 +7,73 @@ if (!isset($_SESSION['correo'])) {
 
 require 'config.php';
 
+// Obtener ID del usuario logueado
 $correo = $_SESSION['correo'];
-$usuario_id = null;
-
-// Obtener el ID del usuario
-$stmt = $conn->prepare("SELECT id, nombre FROM usuarios WHERE correo = ?");
+$stmt = $conn->prepare("SELECT id FROM usuarios WHERE correo = ?");
 $stmt->bind_param("s", $correo);
 $stmt->execute();
-$stmt->bind_result($usuario_id, $nombre);
+$stmt->bind_result($usuario_id);
 $stmt->fetch();
 $stmt->close();
 
 // Obtener tareas del usuario
-$tareas = [];
-if ($usuario_id) {
-    $stmt = $conn->prepare("SELECT id, texto, completada FROM tareas WHERE usuario_id = ?");
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    while ($fila = $resultado->fetch_assoc()) {
-        $tareas[] = $fila;
-    }
-    $stmt->close();
-}
+$stmt = $conn->prepare("SELECT titulo, descripcion, estado, fecha_inicio, fecha_fin FROM tareas WHERE id_usuario = ?");
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$tareas = $resultado->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mis Tareas</title>
-    <link rel="stylesheet" href="css/inicio_registro.css">
+  <meta charset="UTF-8">
+  <title>Mis Tareas</title>
+  <meta http-equiv='refresh' content='5;url=tareas.php'>
+  <link rel="stylesheet" href="css/tareas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="bienvenida-box">
-        <h2 class="titulo-bienvenida">Hola, <?= htmlspecialchars($nombre) ?> 👋</h2>
-        <h3 style="color:#26a69a; margin-top:20px;">Tus tareas</h3>
+  <div class="contenedor">
+    <h2>Mis tareas</h2>
+     <?php if (isset($_GET['creado']) && $_GET['creado'] == 1): ?>
+     <p class="mensaje-ok">✅ Tarea creada correctamente.</p>
+     <?php endif; ?>
+    <?php if (empty($tareas)): ?>
+      <div class="sin-tareas">
+    <img src="img/icono_editar.png" alt="Sin tareas" class="logo-tareas-vacio">
+    <p class="mensaje-vacio">No tienes tareas registradas.</p>
+      </div>
+    <?php else: ?>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($tareas as $tarea): ?>
+            <tr>
+              <tr class="estado-<?= str_replace(' ', '-', strtolower($tarea['estado'])) ?>">
+              <td><?= htmlspecialchars($tarea['titulo']) ?></td>
+              <td><?= nl2br(htmlspecialchars($tarea['descripcion'])) ?></td>
+              <td><?= ucfirst($tarea['estado']) ?></td>
+              <td><?= $tarea['fecha_inicio'] ?></td>
+              <td><?= $tarea['fecha_fin'] ?></td>
+           </tr>
+         <?php endforeach; ?>
+        </tbody>
+      </table>
+    <?php endif; ?>
 
-        <?php if (empty($tareas)): ?>
-            <p>No tienes tareas aún.</p>
-        <?php else: ?>
-            <ul>
-                <?php foreach ($tareas as $tarea): ?>
-                    <li>
-                        <?= htmlspecialchars($tarea['texto']) ?>
-                        <?= $tarea['completada'] ? '✅' : '' ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-
-        <div class="acciones" style="margin-top: 30px;">
-            <a href="logout.php" class="boton-secundario">Cerrar sesión</a>
-            <a href="bienvenida.php" class="boton-principal">Volver</a>
-        </div>
+    <div class="acciones">
+      <a href="crear_tarea.php" class="boton-principal">Crear nueva tarea</a>
+      <a href="bienvenida.php" class="boton-secundario">Volver</a>
     </div>
+  </div>
 </body>
 </html>
